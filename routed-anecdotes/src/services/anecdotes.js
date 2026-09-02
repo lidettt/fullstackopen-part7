@@ -1,4 +1,7 @@
-const baseUrl = "http://localhost:3001/anecdotes";
+const baseUrl =
+  import.meta.env.MODE === "test"
+    ? "http://localhost:3002/anecdotes"
+    : "http://localhost:3001/anecdotes";
 
 const getAll = async () => {
   const response = await fetch(baseUrl);
@@ -25,9 +28,13 @@ const createNew = async (object) => {
 };
 
 const remove = async (id) => {
-  await fetch(`${baseUrl}/${id}`, {
+  const response = await fetch(`${baseUrl}/${id}`, {
     method: "DELETE",
   });
+
+  if (!response.ok) {
+    throw new Error("Failed to delete anecdote");
+  }
 };
 
 export default { getAll, createNew, remove };
