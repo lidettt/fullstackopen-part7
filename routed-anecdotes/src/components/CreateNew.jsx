@@ -1,7 +1,9 @@
 import { useNavigate } from "react-router-dom";
 import { useField } from "../hooks";
+import { useAnecdotes } from "../hooks";
 
-const CreateNew = ({ addNew }) => {
+const CreateNew = () => {
+  const { addAnecdote } = useAnecdotes();
   const content = useField("text");
   const author = useField("text");
   const info = useField("text");
@@ -9,7 +11,7 @@ const CreateNew = ({ addNew }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    addNew({
+    addAnecdote({
       content: content.value,
       author: author.value,
       info: info.value,
