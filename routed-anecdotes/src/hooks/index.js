@@ -27,7 +27,14 @@ export const useAnecdotes = () => {
     anecdoteService.getAll().then((data) => setAnecdotes(data));
   }, []);
 
+  const addAnecdote = (anecdote) => {
+    anecdoteService.createNew(anecdote).then((newAnecdote) => {
+      setAnecdotes((anecdotes) => anecdotes.concat(newAnecdote));
+    });
+  };
+
   return {
     anecdotes,
+    addAnecdote,
   };
 };
